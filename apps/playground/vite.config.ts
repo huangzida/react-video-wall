@@ -9,6 +9,9 @@ const libRoot = fileURLToPath(new URL("../../packages/react-lib", import.meta.ur
 const preview = process.env.PREVIEW === "1";
 
 export default defineConfig({
+  // ponytail: GitHub Pages project pages serve under /<repo>/, so the deploy sets
+  // PAGES_BASE=/starter-react/ and assets resolve correctly. Default '/' for dev/CI.
+  base: process.env.PAGES_BASE ?? "/",
   plugins: [react()],
   resolve: {
     alias: [
