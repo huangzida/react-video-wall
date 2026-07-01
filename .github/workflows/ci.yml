@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-build:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint:ci
+      - name: Build lib
+        run: pnpm build:lib
+      - name: Build playground
+        run: pnpm build:playground
+
+  test-matrix:
+    name: Test (Node ${{ matrix.node }} · React ${{ matrix.react }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22.x", "24.x"]
+        react: ["17.0.2", "18.x", "19.x"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Pin React ${{ matrix.react }}
+        run: node scripts/pin-react.mjs ${{ matrix.react }}
+      - name: Test
+        run: pnpm test
+
+  release-dry-run:
+    name: Release Dry-Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build lib
+        run: pnpm build:lib
+      - name: Release dry-run gate
+        run: pnpm release:dry-run

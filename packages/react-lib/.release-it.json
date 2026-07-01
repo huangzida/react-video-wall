@@ -1,0 +1,22 @@
+{
+  "git": {
+    "commitMessage": "chore(release): v${version}",
+    "tagName": "v${version}",
+    "push": true
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits",
+      "infile": "../../CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "before:git:release": "npm publish --provenance --no-git-checks"
+  }
+}

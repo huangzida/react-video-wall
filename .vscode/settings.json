@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "oxc.oxc",
+  "oxc.lint.enable": true,
+  "files.eol": "\n",
+  "[markdown]": {
+    "editor.wordWrap": "on"
+  },
+  "search.exclude": {
+    "**/dist": true,
+    "**/coverage": true
+  }
+}

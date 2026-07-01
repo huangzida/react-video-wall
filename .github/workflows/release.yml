@@ -1,0 +1,61 @@
+name: Release
+
+# ADR-0006 Pattern B: release-it driven from CI with OIDC trusted publishing.
+# A maintainer dispatches this workflow; release-it derives the version bump
+# from Conventional Commits (ADR-0007), so there is NO `increment` input.
+on:
+  workflow_dispatch:
+    inputs:
+      preRelease:
+        description: "beta | rc | <id>"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+          # ADR-0006: disable package-manager cache for the publish build.
+          package-manager-cache: false
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build lib
+        run: pnpm build:lib
+      # Gate: same artifact validation as `pnpm release:dry-run` locally.
+      # Fails -> abort. Nothing is committed, tagged, or pushed.
+      - name: Release dry-run gate
+        run: pnpm release:dry-run
+      # release-it bumps version, writes CHANGELOG.md, publishes via the
+      # before:git:release hook (npm publish --provenance), then commits/tags.
+      # Deliberately NO NODE_AUTH_TOKEN: npm publish uses OIDC trusted
+      # publishing via id-token (npm CLI >= 11.5.1). The maintainer must have
+      # configured the npm package's Trusted Publisher to this workflow, and
+      # bootstrapped the first release with a one-time token (ADR-0006).
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          npm_config_provenance: "true"
+        run: |
+          ARGS="--ci"
+          if [ -n "${{ inputs.preRelease }}" ]; then
+            ARGS="$ARGS --preRelease=${{ inputs.preRelease }}"
+          fi
+          pnpm --filter react-lib exec release-it $ARGS

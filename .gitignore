@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# build output
+dist
+*.tgz
+
+# test coverage
+coverage
+
+# tooling caches
+.turbo
+
+# misc
+*.local
+.DS_Store
+*.log
+
+# pnpm
+pnpm-debug.log*
+.pnpm-store/

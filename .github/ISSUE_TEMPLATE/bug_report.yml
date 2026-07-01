@@ -1,0 +1,68 @@
+name: Bug 报告
+description: 报告一个可复现的问题，帮助改进本模板
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量填写清楚，方便我们快速定位。
+        记得先搜索一下是否已有相同 issue，避免重复创建。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题现象
+      description: 发生了什么？你期望发生什么？
+      placeholder: |
+        现象：……
+        期望：……
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 最小可复现示例（最好附代码 / 仓库链接）。
+      placeholder: |
+        1. pnpm install
+        2. pnpm build:lib
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node 版本
+      placeholder: "24"
+    validations:
+      required: true
+
+  - type: input
+    id: react
+    attributes:
+      label: React 版本
+      placeholder: "19.x / 18.x / 17.0.2"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志 / 报错
+      description: 粘贴报错堆栈或 lint/build 输出（建议用代码块包裹）。
+      render: shell
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 受影响的部分
+      multiple: true
+      options:
+        - 构建 (build:lib / build:playground)
+        - 测试 (vitest)
+        - 代码检查 / 格式化 (oxlint / oxfmt)
+        - 发布流程 (release-it / OIDC)
+        - 发布前校验 (release:dry-run / verdaccio)
+        - 在线演示 (GitHub Pages)
+        - 其他

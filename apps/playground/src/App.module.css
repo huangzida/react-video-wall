@@ -1,0 +1,103 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--rl-color-bg);
+  color: var(--rl-color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 1.75rem 2.25rem;
+  border: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 4%),
+    0 8px 30px rgb(0 0 0 / 6%);
+  min-width: 22rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  color: var(--rl-color-primary);
+  flex-shrink: 0;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.title p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--rl-color-primary);
+  border-radius: var(--rl-radius);
+  background: transparent;
+  color: var(--rl-color-text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.toggle:hover {
+  background: color-mix(in oklab, var(--rl-color-primary) 12%, transparent);
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.demo h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.caption {
+  margin: 0;
+  font-size: 0.78rem;
+  opacity: 0.6;
+  text-align: center;
+}
+
+.code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}

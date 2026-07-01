@@ -1,0 +1,31 @@
+{
+  "name": "starter-react",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "oxlint .",
+    "fmt": "oxfmt --write .",
+    "lint:ci": "oxlint . && oxfmt --check .",
+    "build:lib": "pnpm --filter react-lib build",
+    "build:playground": "pnpm --filter playground build",
+    "test": "pnpm --filter react-lib test",
+    "release:dry-run": "node scripts/release-dry-run.mjs",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@release-it/conventional-changelog": "^7.0.0",
+    "lefthook": "^1.10.0",
+    "oxfmt": "^0.56.0",
+    "oxlint": "^1.71.0",
+    "release-it": "^18.0.0",
+    "typescript": "^5.9.0",
+    "verdaccio": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=22.14"
+  },
+  "packageManager": "pnpm@10.0.0"
+}

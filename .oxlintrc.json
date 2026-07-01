@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "react/exhaustive-deps": "error",
+    "react/rules-of-hooks": "error"
+  },
+  "ignorePatterns": ["dist/**", "coverage/**", "node_modules/**", "pnpm-lock.yaml"]
+}
