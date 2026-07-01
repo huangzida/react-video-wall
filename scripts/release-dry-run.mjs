@@ -26,11 +26,16 @@ const capture = (cmd, opts) => execSync(cmd, { encoding: "utf8", ...opts }).trim
 
 function startVerdaccio() {
   const configPath = join(tmpdir(), `verdaccio-${process.pid}.yaml`);
-  // ponytail: anonymous publish so the dry-run needs no real npm account; verdaccio
-  // proxies to npmjs so peer deps (react/react-dom) resolve during the temp install.
+  const storageDir = join(tmpdir(), "verdaccio-storage");
+  // ponytail: wipe storage each run so re-runs never hit a 409 on an already-published
+  // throwaway version, and never collide with a real upstream package cached previously.
+  rmSync(storageDir, { recursive: true, force: true });
+  // ponytail: 'react-lib' is local-only (NO proxy) so the dry-run never resolves the
+  // real npm package of that name and never clashes with a higher published version.
+  // peer deps (react/react-dom) still proxy to npmjs via the '**' fallback below.
   writeFileSync(
     configPath,
-    `storage: ${join(tmpdir(), "verdaccio-storage")}
+    `storage: ${storageDir}
 auth:
   anonymous:
     enabled: true
@@ -38,6 +43,10 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 packages:
+  'react-lib':
+    access: $anonymous
+    publish: $anonymous
+    unpublish: $anonymous
   '@*/*':
     access: $anonymous
     publish: $anonymous
@@ -114,7 +123,7 @@ async function main() {
     // (4) Pack a REAL tarball and publish it to the local registry.
     log(4, `npm pack + publish → ${REGISTRY}`);
     const tgz = capture("npm pack", { cwd: libDir }).split("\n").pop();
-    run(`npm publish "${tgz}" --registry ${REGISTRY}`, { cwd: libDir, env: regEnv });
+    run(`npm publish "${tgz}" --registry ${REGISTRY} --tag dry-run`, { cwd: libDir, env: regEnv });
 
     // (5) Prove the real End-User install path in a throwaway project (not the
     // playground — `pnpm add` fighting `workspace:*` is unreliable). Install react-lib
