@@ -18,7 +18,7 @@
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@release-it/conventional-changelog": "^7.0.0",
-    "lefthook": "^1.10.0",
+    "lefthook": "^2.1.9",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
     "release-it": "^18.0.0",
