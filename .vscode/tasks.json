@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev:playground",
+      "detail": "启动 playground 开发服务器 (自动切 Node 版本)",
+      "type": "shell",
+      "command": "eval \"$(fnm env)\" && fnm use --install-if-missing && pnpm run dev:playground",
+      "isBackground": true,
+      "group": "build",
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "^\\s*$" },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE|vite",
+          "endsPattern": "ready in|Local:"
+        }
+      },
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    }
+  ]
+}
