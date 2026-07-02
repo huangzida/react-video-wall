@@ -10,6 +10,9 @@
 //    anonymous auth accepts the request regardless of the bearer value.
 //  - `pnpm add` fighting a `workspace:*` dep is unreliable, so we prove the real
 //    npm install path in a throwaway temp project instead of mutating the playground.
+//  - The interactive entry imports react-rnd (a browser peerDep), which cannot execute
+//    under plain `node`; so we IMPORT the core entry (zero-dep, no module-load DOM) and
+//    only RESOLVE (not execute) the ./interactive and ./style.css subpaths.
 import { execSync, spawn } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -17,7 +20,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const libDir = `${root}packages/react-lib`;
+const libDir = `${root}packages/react-video-wall`;
 const REGISTRY = "http://127.0.0.1:4873";
 
 const log = (n, msg) => console.log(`\n[${n}] ${msg}`);
@@ -30,9 +33,9 @@ function startVerdaccio() {
   // ponytail: wipe storage each run so re-runs never hit a 409 on an already-published
   // throwaway version, and never collide with a real upstream package cached previously.
   rmSync(storageDir, { recursive: true, force: true });
-  // ponytail: 'react-lib' is local-only (NO proxy) so the dry-run never resolves the
-  // real npm package of that name and never clashes with a higher published version.
-  // peer deps (react/react-dom) still proxy to npmjs via the '**' fallback below.
+  // ponytail: 'react-video-wall' is local-only (NO proxy) so the dry-run never resolves
+  // the real npm package of that name and never clashes with a higher published version.
+  // peer deps (react/react-dom/react-rnd) still proxy to npmjs via the '**' fallback.
   writeFileSync(
     configPath,
     `storage: ${storageDir}
@@ -43,7 +46,7 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 packages:
-  'react-lib':
+  'react-video-wall':
     access: $anonymous
     publish: $anonymous
     unpublish: $anonymous
@@ -126,8 +129,8 @@ async function main() {
     run(`npm publish "${tgz}" --registry ${REGISTRY} --tag dry-run`, { cwd: libDir, env: regEnv });
 
     // (5) Prove the real End-User install path in a throwaway project (not the
-    // playground — `pnpm add` fighting `workspace:*` is unreliable). Install react-lib
-    // + its react peer from verdaccio, then exercise the published entry.
+    // playground — `pnpm add` fighting `workspace:*` is unreliable). Install the lib
+    // + its react peer from verdaccio, then exercise the published entries.
     log(5, "throwaway consumer install + import (from verdaccio)");
     const version = JSON.parse(readFileSync(`${libDir}/package.json`, "utf8")).version;
     const consumerDir = join(tmpdir(), `consumer-${process.pid}`);
@@ -137,16 +140,15 @@ async function main() {
       join(consumerDir, "package.json"),
       JSON.stringify({ name: "consumer", type: "module", private: true }),
     );
-    run(`npm install react-lib@${version} react@19 react-dom@19 --registry ${REGISTRY}`, {
+    run(`npm install react-video-wall@${version} react@19 react-dom@19 --registry ${REGISTRY}`, {
       cwd: consumerDir,
       env: regEnv,
     });
-    // Resolve the entry + the css subpath exactly like an End User would.
+    // IMPORT the core entry (safe: no module-load DOM) and RESOLVE the ./interactive and
+    // ./style.css subpaths (resolve-only — react-rnd is a browser peerDep, not node-runnable).
     writeFileSync(
       join(consumerDir, "smoke.mjs"),
-      // ponytail: namespace import of the published ESM entry; assert named exports
-      // exist and the ./style.css subpath (exports map) resolves to a real file.
-      `import * as entry from 'react-lib'\nimport { existsSync } from 'node:fs'\nimport { createRequire } from 'node:module'\nconst require = createRequire(import.meta.url)\nconst cssPath = require.resolve('react-lib/style.css')\nif (typeof entry.Counter !== 'function') throw new Error('Counter export missing')\nif (typeof entry.useCounter !== 'function') throw new Error('useCounter export missing')\nif (!existsSync(cssPath)) throw new Error('style.css subpath not found: ' + cssPath)\nconsole.log('consumer OK:', Object.keys(entry).join(','), '| css:', cssPath)\n`,
+      `import * as core from 'react-video-wall'\nimport { existsSync } from 'node:fs'\nconst interactiveUrl = import.meta.resolve('react-video-wall/interactive')\nconst cssUrl = import.meta.resolve('react-video-wall/style.css')\nfor (const name of ['VideoWall', 'Window', 'splitWall', 'useWallScale', 'computeScale']) {\n  if (typeof core[name] !== 'function') throw new Error(name + ' export missing')\n}\nif (!existsSync(new URL(interactiveUrl))) throw new Error('interactive subpath file missing: ' + interactiveUrl)\nif (!existsSync(new URL(cssUrl))) throw new Error('style.css subpath file missing: ' + cssUrl)\nconsole.log('consumer OK:', Object.keys(core).join(','))\nconsole.log('interactive:', interactiveUrl)\nconsole.log('css:', cssUrl)\n`,
     );
     run("node smoke.mjs", { cwd: consumerDir });
 

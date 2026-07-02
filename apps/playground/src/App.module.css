@@ -1,103 +1,507 @@
-.main {
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+/*
+ * react-video-wall playground — control-room aesthetic.
+ * Theme flips under `.dark` on <html> (ADR-0004). Vars are declared on the page
+ * root and inherited down; the library's presentational defaults (`.rvw-tile` /
+ * `.rvw-window`) are overridden below to stay legible in both themes.
+ */
+
+.page {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", monospace;
+
+  --bg: #eef2f7;
+  --bg-glow-a: rgba(45, 212, 191, 0.14);
+  --bg-glow-b: rgba(99, 102, 241, 0.12);
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --wall-bg: #0e1420;
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --text: #0f172a;
+  --muted: #64748b;
+  --faint: #94a3b8;
+  --accent: #0d9488;
+  --accent-2: #4f46e5;
+
+  /* camera-feed window content */
+  --feed-a: #0b1220;
+  --feed-b: #131c2e;
+  --feed-glow: rgba(45, 212, 191, 0.22);
+  --tile-border: rgba(15, 23, 42, 0.16);
+  --win-border: var(--accent);
+  --win-bg: transparent;
+
   min-height: 100vh;
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 4vw, 3rem) 2rem;
+  color: var(--text);
+  font-family: var(--font-display);
+  background:
+    radial-gradient(1100px 560px at 8% -10%, var(--bg-glow-a), transparent 60%),
+    radial-gradient(900px 500px at 102% -4%, var(--bg-glow-b), transparent 55%), var(--bg);
+  background-attachment: fixed;
+}
+
+:global(.dark) .page {
+  --bg: #070a11;
+  --bg-glow-a: rgba(45, 212, 191, 0.1);
+  --bg-glow-b: rgba(79, 70, 229, 0.12);
+  --surface: #111827;
+  --surface-2: #0d1422;
+  --wall-bg: #05080e;
+  --border: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(148, 163, 184, 0.24);
+  --text: #e6edf3;
+  --muted: #94a3b8;
+  --faint: #64748b;
+  --accent: #2dd4bf;
+  --accent-2: #818cf8;
+
+  --feed-a: #0a1018;
+  --feed-b: #0f1a2b;
+  --feed-glow: rgba(45, 212, 191, 0.16);
+  --tile-border: rgba(148, 163, 184, 0.1);
+  --win-border: var(--accent);
+  --win-bg: transparent;
+}
+
+/* ---------- top bar ---------- */
+
+.topbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: var(--rl-color-bg);
-  color: var(--rl-color-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    sans-serif;
+  gap: 1rem;
+  max-width: 1240px;
+  margin: 0 auto 1.5rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border);
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  padding: 1.75rem 2.25rem;
-  border: 1px solid color-mix(in oklab, currentColor 14%, transparent);
-  border-radius: 1rem;
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 4%),
-    0 8px 30px rgb(0 0 0 / 6%);
-  min-width: 22rem;
-}
-
-.header {
+.brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.7rem;
+  min-width: 0;
 }
 
-.logo {
-  color: var(--rl-color-primary);
+.brandIcon {
+  color: var(--accent);
   flex-shrink: 0;
+  filter: drop-shadow(0 0 8px var(--feed-glow));
 }
 
-.title {
+.brandText {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  line-height: 1.15;
+  min-width: 0;
 }
 
-.title h1 {
+.brandText h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.title p {
+.brandText p {
   margin: 0;
-  font-size: 0.8rem;
-  opacity: 0.6;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.6rem;
+  padding: 0.18rem 0.5rem 0.18rem 0.4rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: pulse 1.8s ease-out infinite;
 }
 
 .toggle {
   margin-left: auto;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid var(--rl-color-primary);
-  border-radius: var(--rl-radius);
-  background: transparent;
-  color: var(--rl-color-text);
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.15s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.06s ease;
 }
 
 .toggle:hover {
-  background: color-mix(in oklab, var(--rl-color-primary) 12%, transparent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 16%, transparent);
 }
 
-.demo {
+.toggle:active {
+  transform: translateY(1px);
+}
+
+/* ---------- grid + panels ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.85rem;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 4%),
+    0 12px 34px rgb(2 6 23 / 6%);
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-.demo h2 {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  opacity: 0.85;
+.panel:nth-child(2) {
+  animation-delay: 0.08s;
 }
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panelIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.panelHead h2 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+}
+
+.count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+/* ---------- data / debug panel (read-only live state) ---------- */
+
+.data {
+  max-width: 1240px;
+  margin: 1.25rem auto 0;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 4%),
+    0 12px 34px rgb(2 6 23 / 6%);
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: 0.16s;
+}
+
+.dataGrid {
+  margin-top: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  background: var(--surface-2);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dataRow {
+  display: grid;
+  grid-template-columns: 3.5rem repeat(4, minmax(0, 1fr));
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s ease;
+}
+
+.dataRow:last-child {
+  border-bottom: 0;
+}
+
+/* right-align the numeric columns; id stays left */
+.dataRow span:not(:first-child) {
+  text-align: right;
+}
+
+.dataHeadRow {
+  padding-top: 0.34rem;
+  padding-bottom: 0.34rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: color-mix(in oklab, var(--accent) 5%, transparent);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.dataRow:not(.dataHeadRow):hover {
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+}
+
+.dataId {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.dataEmpty {
+  grid-column: 1 / -1;
+  padding: 0.9rem 0.8rem;
+  text-align: center;
+  color: var(--faint);
+  font-style: italic;
+}
+
+.dataRef {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+}
+
+@media (max-width: 560px) {
+  .dataRow {
+    grid-template-columns: 2.8rem repeat(4, minmax(0, 1fr));
+    padding-inline: 0.6rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* ---------- wall frame ---------- */
+/* MUST have an explicit height: aspect-ratio gives it, else the wall collapses. */
+
+.wallFrame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.65rem;
+  background: var(--wall-bg);
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 2%),
+    inset 0 2px 22px rgb(0 0 0 / 45%);
+}
+
+/* faint CRT scanline mesh so the wall reads as a screen */
+.wallFrame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.025) 0 1px,
+    transparent 1px 4px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* ---------- library overrides ---------- */
+
+.wallFrame :global(.rvw-tile) {
+  border-color: var(--tile-border);
+}
+
+.wallFrame :global(.rvw-window) {
+  border: 1px solid var(--win-border);
+  background: var(--win-bg);
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 30%),
+    0 0 16px color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+/* ---------- tile label ---------- */
+
+.tileLabel {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ---------- window feed placeholder ---------- */
+
+.winContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 25% 15%, var(--feed-glow), transparent 55%),
+    linear-gradient(150deg, var(--feed-a), var(--feed-b));
+}
+
+.winContent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.03) 0 1px,
+    transparent 1px 3px
+  );
+  opacity: 0.5;
+}
+
+.recDot {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.winId {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgb(226 232 240 / 0.9);
+  text-shadow: 0 1px 6px rgb(0 0 0 / 60%);
+}
+
+/* ---------- caption + footer ---------- */
 
 .caption {
   margin: 0;
-  font-size: 0.78rem;
-  opacity: 0.6;
-  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
-.code {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+.caption code {
+  font-family: inherit;
+  color: var(--accent);
+}
+
+.caption strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.foot {
+  max-width: 1240px;
+  margin: 1.5rem auto 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  text-align: center;
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: 0.16s;
+}
+
+/* ---------- motion ---------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar,
+  .panel,
+  .data,
+  .foot,
+  .liveDot {
+    animation: none;
+  }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "react-lib",
+  "name": "react-video-wall",
   "version": "0.0.0",
-  "description": "Example publishable React library scaffolded by starter-react.",
+  "description": "Composable React component library for video-wall (大屏) layout, windowing, and interactive editing. Zero-dep core with lossless physical-integer coordinates.",
   "license": "MIT",
   "files": [
     "dist"
@@ -10,15 +10,19 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/core.js",
+  "module": "./dist/core.js",
+  "types": "./dist/core.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.js"
     },
-    "./style.css": "./dist/index.css"
+    "./interactive": {
+      "types": "./dist/interactive.d.ts",
+      "import": "./dist/interactive.js"
+    },
+    "./style.css": "./dist/rvw.css"
   },
   "scripts": {
     "build": "vite build",
@@ -37,6 +41,7 @@
     "happy-dom": "^15",
     "react": "^19",
     "react-dom": "^19",
+    "react-rnd": "^10.5.3",
     "typescript": "^5",
     "vite": "^8",
     "vite-plugin-dts": "^4",
@@ -44,6 +49,7 @@
   },
   "peerDependencies": {
     "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "react-dom": ">=17.0.2",
+    "react-rnd": ">=10"
   }
 }

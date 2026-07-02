@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev:playground": "pnpm --filter playground dev",
     "lint": "oxlint .",
     "fmt": "oxfmt --write .",
     "lint:ci": "oxlint . && oxfmt --check .",
-    "build:lib": "pnpm --filter react-lib build",
+    "build:lib": "pnpm --filter react-video-wall build",
     "build:playground": "pnpm --filter playground build",
-    "test": "pnpm --filter react-lib test",
+    "test": "pnpm --filter react-video-wall test",
     "release:dry-run": "node scripts/release-dry-run.mjs",
     "prepare": "lefthook install"
   },

@@ -8,7 +8,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const libDir = `${root}packages/react-lib`;
+const libDir = `${root}packages/react-video-wall`;
 
 const fail = (msg) => {
   console.error(`✖ tarball assertion failed: ${msg}`);
@@ -16,13 +16,23 @@ const fail = (msg) => {
 };
 
 // 1) Packed file list. `npm pack --dry-run --json` reports source-relative paths
-//    (e.g. "dist/index.js"); inside the tarball they live under `package/`. Normalize
+//    (e.g. "dist/core.js"); inside the tarball they live under `package/`. Normalize
 //    by stripping any leading `package/` so this works regardless of which npm reports.
 const raw = execSync("npm pack --dry-run --json", { cwd: libDir, encoding: "utf8" });
 const packed = JSON.parse(raw)[0];
 const paths = new Set((packed.files ?? []).map((f) => f.path.replace(/^package\//, "")));
 
-const expectedFiles = ["dist/index.js", "dist/index.css", "dist/index.d.ts", "package.json"];
+// Multi-entry build (ADR-0013): two self-referencing entries + a shared chunk (holds
+// the WallContext singleton both entries must use) + one CSS + per-entry types.
+const expectedFiles = [
+  "dist/core.js",
+  "dist/interactive.js",
+  "dist/shared.js",
+  "dist/rvw.css",
+  "dist/core.d.ts",
+  "dist/interactive.d.ts",
+  "package.json",
+];
 for (const f of expectedFiles) {
   if (!paths.has(f))
     fail(`tarball missing package/${f} (packed: ${[...paths].join(", ") || "nothing"})`);
@@ -32,7 +42,8 @@ for (const f of expectedFiles) {
 const pkg = JSON.parse(readFileSync(`${libDir}/package.json`, "utf8"));
 const exports = pkg.exports ?? {};
 if (!exports["."]) fail(`package.json exports has no '.' entry`);
-if (!exports["./style.css"]) fail(`package.json exports has no './style.css' entry (ADR-0004)`);
+if (!exports["./interactive"]) fail(`package.json exports has no './interactive' entry (ADR-0013)`);
+if (!exports["./style.css"]) fail(`package.json exports has no './style.css' entry`);
 const se = pkg.sideEffects;
 const cssCovered = Array.isArray(se) ? se.some((s) => s.endsWith(".css")) : se === true;
 if (!cssCovered) fail(`package.json sideEffects does not cover css (got ${JSON.stringify(se)})`);

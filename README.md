@@ -1,118 +1,198 @@
-<p align="center">
-  <svg width="34" height="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#61DAFB" d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>
-  <svg width="34" height="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#646CFF" d="m8.286 10.578.512-8.657a.306.306 0 0 1 .247-.282L17.377.006a.306.306 0 0 1 .353.385l-1.558 5.403a.306.306 0 0 0 .352.385l2.388-.46a.306.306 0 0 1 .332.438l-6.79 13.55-.123.19a.294.294 0 0 1-.252.14c-.177 0-.35-.152-.305-.369l1.095-5.301a.306.306 0 0 0-.388-.355l-1.433.435a.306.306 0 0 1-.389-.354l.69-3.375a.306.306 0 0 0-.37-.36l-2.32.536a.306.306 0 0 1-.374-.316zm14.976-7.926L17.284 3.74l-.544 1.887 2.077-.4a.8.8 0 0 1 .84.369.8.8 0 0 1 .034.783L12.9 19.93l-.013.025-.015.023-.122.19a.801.801 0 0 1-.672.37.826.826 0 0 1-.634-.302.8.8 0 0 1-.16-.67l1.029-4.981-1.12.34a.81.81 0 0 1-.86-.262.802.802 0 0 1-.165-.67l.63-3.08-2.027.468a.808.808 0 0 1-.768-.233.81.81 0 0 1-.217-.6l.389-6.57-7.44-1.33a.612.612 0 0 0-.64.906L11.58 23.691a.612.612 0 0 0 1.066-.004l11.26-20.135a.612.612 0 0 0-.644-.9z"/></svg>
-</p>
+# react-video-wall
 
-<h1 align="center">starter-react</h1>
+> 可组合的 React 视频墙（大屏）布局、窗口与交互编辑组件库。
 
-<p align="center">
-  开箱即用的 React npm 库脚手架 —— 克隆即开发，发版不用从零配。
-</p>
+把一面**物理视频墙**映射到任意尺寸的 DOM，并在两个坐标空间之间**无损**转换。核心层零依赖；交互层（框选开窗 / 拖拽 / 八向缩放 / 拖出删除）基于 `react-rnd`，按子路径隔离。
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/react-lib"><img alt="npm version" src="https://img.shields.io/npm/v/react-lib?style=flat-square"></a>
-  <a href="https://www.npmjs.com/package/react-lib"><img alt="npm downloads" src="https://img.shields.io/npm/dm/react-lib?style=flat-square"></a>
-  <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/huangzida/starter-react/ci.yml?branch=main&style=flat-square">
-  <img alt="bundle size" src="https://img.shields.io/bundlephobia/minzip/react-lib?style=flat-square">
-  <a href="https://www.npmjs.com/package/react-lib"><img alt="license" src="https://img.shields.io/npm/l/react-lib?style=flat-square"></a>
-  <img alt="react peer" src="https://img.shields.io/npm/dependency-version/react-lib/peer/react?style=flat-square">
-</p>
-
-<p align="center">
-  🔗 <a href="https://huangzida.github.io/starter-react/">在线演示</a>
-</p>
+```bash
+pnpm add react-video-wall            # 核心：零运行时依赖
+pnpm add react-rnd                    # 仅当使用 ./interactive 交互层时
+```
 
 ---
 
-## 简介
-
-**starter-react** 是一个可克隆的 React npm 库**脚手架模板**。团队 `degit` / `git clone` 它来启动一个新的库，无需再从零配置构建、测试、Lint、发版和演示。它本身不是一个 npm 包，而是通过 git 传播；你替换掉示例 `src/`，就得到一个可发布的**消费者库（Consumer Library）**。
-
 ## 特性
 
-- 📦 **ESM-only + d.ts** —— `dist/index.js` + `dist/index.d.ts`，现代条件 `exports`，无 CJS 包袱（[ADR-0002](docs/adr/0002-esm-only-react-matrix.md)）。
-- ⚛️ **React 17 / 18 / 19 矩阵** —— CI 跑 Vitest × 三大 React 版本，`peerDependencies` 是被测过的事实，不是营销话术。
-- 🎨 **原生 CSS（CSS Modules + 主题变量）** —— 平台即工具链，编译出单一 `style.css`，End User 一行导入即用（[ADR-0004](docs/adr/0004-native-css.md)）。
-- 🧪 **Vitest + Testing Library** —— 组件库级测试开箱即用。
-- ⚡ **oxlint + oxfmt** —— 比 ESLint/Prettier 快 50–100 倍，Vite 同源工具链（[ADR-0005](docs/adr/0005-oxlint-oxfmt.md)）。
-- 🚀 **release-it Pattern B + OIDC** —— 单命令发版，OIDC trusted publishing 免令牌，版本号由 Conventional Commits 自动推导（[ADR-0006](docs/adr/0006-release-it.md)）。
-- 🔎 **verdaccio 发布前校验** —— 本地 `release:dry-run` 与 CI 校验同一份产物，杜绝「本地能构建、CI 发版失败」。
-- 🌐 **GitHub Pages 演示** —— 真实可交互的在线 Demo，取代 GIF。
+- **无损坐标模型** —— 墙与所有矩形（瓦片、窗口）都以**物理整数像素**建模，DOM 是派生的缩放视图。`toPhysical(toDom(phys)) === phys` 在两个轴上恒成立，跨编辑周期不会漂移（[ADR-0008](docs/adr/0008-coordinate-model.md)）。
+- **精确分割** —— `splitWall` 把余数像素分配到末行末列，瓦片整数求和精确等于墙；瓦片用**边框**而非间隙绘制，不扰动坐标（[ADR-0009](docs/adr/0009-wall-tile-model.md)）。
+- **可控窗口** —— 窗口是消费方的受控状态，库不持有；`<Window>` 只渲染外壳，内容由你提供（[ADR-0010](docs/adr/0010-window-model.md)）。
+- **零依赖核心** —— `import "react-video-wall"` 永不拉入 `react-rnd`；只有 `import "react-video-wall/interactive"` 需要（[ADR-0013](docs/adr/0013-package-structure-and-api.md)）。
+- **contain-fit 渲染** —— 墙按 `min(domView/wall)` 统一缩放、居中（letterbox），容器尺寸无关。
 
-## 快速开始
+---
+
+## 快速上手
+
+### 核心：静态渲染
+
+```tsx
+import { VideoWall, Window, splitWall } from "react-video-wall";
+import "react-video-wall/style.css";
+
+const WALL = { width: 1920, height: 1080 };
+const TILES = splitWall(WALL, 3, 2); // 3 列 × 2 行，精确覆盖
+
+export function MyWall() {
+  return (
+    <div style={{ aspectRatio: "16 / 9", width: "100%" }}>
+      <VideoWall wall={WALL} tiles={TILES} padding={8}>
+        <Window rect={{ x: 0, y: 0, width: 1280, height: 540 }}>
+          <video src="/cam1.mp4" />
+        </Window>
+      </VideoWall>
+    </div>
+  );
+}
+```
+
+> ⚠️ `<VideoWall>` 填满父容器（`width/height: 100%`），**父容器必须有显式高度**（`aspect-ratio`、固定高度或 flex），否则墙会塌缩为 0。
+
+### 交互：框选 / 拖拽 / 缩放 / 拖出删除
+
+```tsx
+import { useState } from "react";
+import { splitWall, type PhysicalRect } from "react-video-wall";
+import { VideoWallEditor, type VideoWallWindow } from "react-video-wall/interactive";
+
+const WALL = { width: 1920, height: 1080 };
+const TILES = splitWall(WALL, 3, 2);
+
+export function MyEditor() {
+  const [windows, setWindows] = useState<VideoWallWindow[]>([
+    { id: "w1", x: 320, y: 180, width: 640, height: 360 },
+  ]);
+
+  return (
+    <div style={{ aspectRatio: "16 / 9", width: "100%" }}>
+      <VideoWallEditor
+        wall={WALL}
+        tiles={TILES}
+        padding={8}
+        windows={windows}
+        minSize={{ width: 240, height: 160 }}
+        onAdd={(rect) => setWindows((ws) => [...ws, { id: `w${ws.length + 1}`, ...rect }])}
+        onMove={(id, rect) =>
+          setWindows((ws) => ws.map((w) => (w.id === id ? { ...w, ...rect } : w)))
+        }
+        onResize={(id, rect) =>
+          setWindows((ws) => ws.map((w) => (w.id === id ? { ...w, ...rect } : w)))
+        }
+        onRemove={(id) => setWindows((ws) => ws.filter((w) => w.id !== id))}
+        renderWindow={(w) => <video src={`/cam-${w.id}.mp4`} />}
+      />
+    </div>
+  );
+}
+```
+
+交互行为：在空白处**框选**开新窗口（小于 `minSize` 的选区会被拒绝）· 拖拽移动 / 八向缩放（缩放不低于 `minSize`）· 拖拽时把**鼠标移出大屏松手**即删除（窗口本身始终约束在墙内）。
+
+### ⚠️ Vite 消费者配置（交互层必需）
+
+`react-rnd` 的依赖 `react-draggable@4.7.0` 用 `process.env.DRAGGABLE_DEBUG` 门控开发日志，而 Vite 不提供 Node 全局，会抛 `ReferenceError: process is not defined` 导致白屏。在你的 `vite.config.ts` 加两行静态替换（build 与 dev 各一层，缺一不可）：
+
+```ts
+export default defineConfig({
+  // ...其余配置
+  define: { "process.env.DRAGGABLE_DEBUG": JSON.stringify(false) }, // build（Rollup）
+  optimizeDeps: { esbuildOptions: { define: { "process.env.DRAGGABLE_DEBUG": "false" } } }, // dev（esbuild 预打包）
+});
+```
+
+> 待 `react-draggable` 移除对裸 `process` 的引用后，此配置即可删除。仅使用核心层（`.`）的消费者不受影响。
+
+---
+
+## 坐标模型（ADR-0008）
+
+| 空间                 | 说明                                                                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Physical（物理）** | 真实墙的整数像素网格，**权威模型**。所有公开 API（墙尺寸、瓦片、窗口、事件载荷）都用物理整数。                                              |
+| **DOM**              | 浏览器浮点像素，派生视图。每次布局按整数对 `(wall, domView)` 现算 `scale = min(domView.w/wall.w, domView.h/wall.h)`，从不缓存陈旧浮点比例。 |
+
+转换只在一个地方跨边界：交互手势的 DOM px → `round(dom / scale)` → 物理整数。模型只存整数，子物理像素在真实墙上本就不可表示，故**无漂移、无精度损失**。
+
+---
+
+## API 参考
+
+### `react-video-wall`（核心，零依赖）
+
+| 导出                                                                     | 说明                                                 |
+| ------------------------------------------------------------------------ | ---------------------------------------------------- |
+| `<VideoWall wall tiles padding renderTile>`                              | 渲染墙格 + contain-fit + 通过 context 提供 scale     |
+| `<Window rect>`                                                          | 物理整数 rect 外壳，消费方提供 children              |
+| `useWallScale()` / `useWallContext()`                                    | 当前渲染 scale / 完整 context（交互层用）            |
+| `splitWall(wall, cols, rows)`                                            | N×N 生成器，余数分配到末行末列                       |
+| `boundingBox(rects)` / `validateTiles(tiles, wall)`                      | 瓦片便利工具 / 精确覆盖校验（不合规抛 `RangeError`） |
+| `computeWallLayout(wall, container, padding)`                            | contain-fit + 居中布局推导                           |
+| `computeScale` / `toDom` / `toPhysical` / `toDomRect` / `toPhysicalRect` | 坐标转换原语                                         |
+
+类型：`WallSize`、`PhysicalRect`、`DomView`、`DomRect`、`ContainerSize`、`WallBox`、`WallLayout`。
+
+### `react-video-wall/interactive`（peerDep `react-rnd`）
+
+| 导出                                                               | 说明                                                                 |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `<VideoWallEditor wall tiles windows ...handlers>`                 | 一行组合（VideoWall + 框选 + 拖拽缩放）；`minSize?` 限制窗口最小尺寸 |
+| `<InteractionLayer windows onMove onResize onRemove>`              | 每窗口一个受控 `<Rnd>`，在边界做 DOM↔物理转换                        |
+| `<BoxSelect onAdd>`                                                | 透明覆盖层，框选完成发射物理+夹紧 rect                               |
+| `useDragOut()`                                                     | 窗口中心出墙谓词（rect 判据；`<InteractionLayer>` 默认用光标判据）   |
+| `clampToWall` / `clampRectToWall` / `isCentreOutside` / `dragRect` | 交互策略纯函数（高级消费者可用）                                     |
+
+类型：`VideoWallWindow = { id, x, y, width, height, z? }`。
+
+Props：`renderTile?(tile, i)`、`renderWindow?(window)`；窗口为受控 prop，所有变更经 `onAdd`/`onMove`/`onResize`/`onRemove` 上报。
+
+---
+
+## 架构
+
+```
+packages/react-video-wall
+├── src/core/          # 零依赖：坐标模型 + 墙/瓦片 + 渲染器
+│   ├── coords.ts            # ADR-0008 转换原语（无损往返）
+│   ├── splitWall.ts         # ADR-0009 N×N 精确分割
+│   ├── validateTiles.ts     # 精确覆盖边界校验
+│   ├── layout.ts            # contain-fit + 居中
+│   ├── VideoWall.tsx        # 渲染器（边框非间隙 + ResizeObserver）
+│   ├── Window.tsx           # 物理外壳
+│   └── WallContext.tsx      # useWallScale
+└── src/interactive/   # peerDep react-rnd
+    ├── InteractionLayer.tsx # 每窗口 <Rnd> + DOM↔物理 seam
+    ├── BoxSelect.tsx        # 框选开窗
+    ├── useDragOut.ts        # 中心出墙删除
+    ├── VideoWallEditor.tsx  # 便利组合
+    └── geometry.ts          # clampToWall / isCentreOutside / dragRect
+```
+
+构建产物（多入口，ADR-0013）：`dist/core.js` + `dist/interactive.js` + `dist/shared.js`（两入口共用的 WallContext 单例）+ `dist/rvw.css`。
+
+---
+
+## 开发
 
 ```bash
-npx degit huangzida/starter-react my-lib
-cd my-lib
-pnpm install       # Corepack 会自动准备好 pnpm
-pnpm dev           # 启动 playground（End User 视角预览）
-pnpm build:lib     # 构建库产物
+corepack enable && pnpm install        # Node 24 / pnpm 10
+pnpm test                               # vitest（库，含坐标往返不变量）
+pnpm build:lib                          # Vite 多入口库构建
+pnpm --filter playground dev            # 演示站（控制室风格 UI）
+pnpm release:dry-run                    # verdaccio 发布 + 消费者安装门禁
+pnpm lint / pnpm fmt / pnpm lint:ci     # oxlint / oxfmt
 ```
 
-> 环境要求：Node 24（`.nvmrc` 锁定）、pnpm 10（Corepack 启用）。
+React peerDep `>=17.0.2`；CI 矩阵 React 17/18/19 × Node 22/24。
 
-## 目录结构
+## 设计决策
 
-```
-.
-├─ packages/
-│  └─ react-lib/        # 消费者库：可发布的库源码 + 测试 + 构建
-├─ apps/
-│  └─ playground/       # 模拟 End User 视角的演示应用
-├─ scripts/             # pin-react / assert-tarball / release-dry-run
-├─ .github/
-│  ├─ workflows/        # ci / release / deploy
-│  ├─ ISSUE_TEMPLATE/   # bug / feature 表单
-│  └─ dependabot.yml
-├─ docs/
-│  └─ adr/              # 架构决策记录（0001–0007）
-├─ lefthook.yml         # commit-msg(commitlint) + pre-commit(oxlint/oxfmt)
-├─ pnpm-workspace.yaml
-└─ package.json
-```
+领域词汇见 [CONTEXT.md](CONTEXT.md)，实现计划见 [docs/PLAN.md](docs/PLAN.md)。本项目关键决策：
 
-## 技术栈
-
-| 领域          | 技术                                 |
-| ------------- | ------------------------------------ |
-| 构建          | Vite (Rolldown)                      |
-| 语言          | TypeScript（strict，ESM-only）       |
-| 样式          | 原生 CSS（CSS Modules + 自定义属性） |
-| 测试          | Vitest + Testing Library             |
-| Lint / Format | oxlint + oxfmt                       |
-| Git Hooks     | lefthook + commitlint                |
-| 发版          | release-it + OIDC trusted publishing |
-| 包管理        | pnpm 10（Corepack）                  |
-
-## 发布
-
-发版**从 CI 触发**，不在本地跑（[ADR-0006 Pattern B](docs/adr/0006-release-it.md)）：
-
-1. 维护者到仓库的 **Actions → Release → Run workflow** 派发 `release.yml`。
-2. 版本号由 release-it 从 Conventional Commits **自动推导**（`feat`→minor、`fix`→patch、`BREAKING CHANGE`→major），派发时无需选 bump 类型（[ADR-0007](docs/adr/0007-conventional-commits.md)）。
-3. 若要发预发布，在 `preRelease` 输入框填 `beta` 或 `rc`。
-4. 发版流水线：install → build → **dry-run 校验门** → release-it 推版本号 + 写 `CHANGELOG.md` → **OIDC trusted publishing**（`npm publish --provenance`，`id-token: write`，无需 `NPM_TOKEN`）→ 成功后才 commit / tag / 创建 GitHub Release。发布失败不留任何痕迹，重新派发即可，不会烧版本号。
-
-> **首次发布需要一次性引导**：npm 的 OIDC trusted publishing 无法发布一个还不存在的包。需先用一次性细粒度发布令牌手动发第一版，之后在 npm 后台把该包的 **Trusted Publisher** 绑定到本仓库的 `release.yml`，后续发版即免令牌。详见 [ADR-0006](docs/adr/0006-release-it.md)。
-
-## 设计决策（ADR）
-
-| ADR                                                                    | 一句话                                                         |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------- |
-| [0002 — ESM-only + React 矩阵](docs/adr/0002-esm-only-react-matrix.md) | 只发 ESM + d.ts，CI 矩阵覆盖 React 17/18/19。                  |
-| [0004 — 原生 CSS](docs/adr/0004-native-css.md)                         | CSS Modules + 自定义属性，平台即工具链（取代 Tailwind 方案）。 |
-| [0005 — oxlint + oxfmt](docs/adr/0005-oxlint-oxfmt.md)                 | 选 oxc 工具链：更快、与 Vite 同源、React hooks 规则已成熟。    |
-| [0006 — release-it](docs/adr/0006-release-it.md)                       | 单命令发版 + prerelease 支持 + OIDC trusted publishing。       |
-| [0007 — Conventional Commits](docs/adr/0007-conventional-commits.md)   | 提交规范 + 自动生成 CHANGELOG + lefthook 强制。                |
-
-> [0001](docs/adr/0001-pre-compiled-tailwind-css.md) 与 [0003](docs/adr/0003-css-artifact-contract.md) 已被 [0004](docs/adr/0004-native-css.md) 取代，保留作历史。
-
-## 贡献
-
-欢迎贡献！请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
-> 提交信息**必须**符合 [Conventional Commits](https://www.conventionalcommits.org/)，lefthook 的 commit-msg 钩子会用 commitlint 强制校验。
+- [ADR-0008](docs/adr/0008-coordinate-model.md) 坐标模型：物理整数权威
+- [ADR-0009](docs/adr/0009-wall-tile-model.md) 墙与瓦片数据模型
+- [ADR-0010](docs/adr/0010-window-model.md) 窗口：受控、外壳渲染
+- [ADR-0012](docs/adr/0012-interaction-impl.md) 交互层：react-rnd + 自定义框选/拖出
+- [ADR-0013](docs/adr/0013-package-structure-and-api.md) 包结构：双子导出
 
 ## License
 
-[MIT](LICENSE)
+MIT

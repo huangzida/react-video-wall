@@ -10,13 +10,14 @@
   "dependencies": {
     "lucide-react": "^1.23.0",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "react-rnd": "^10.5.3"
   },
   "devDependencies": {
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6",
-    "react-lib": "workspace:*",
+    "react-video-wall": "workspace:*",
     "typescript": "^5",
     "vite": "^8"
   }
