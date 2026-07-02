@@ -1,25 +1,31 @@
-# starter-react
+# react-video-wall
 
-A starter template repository for producing publishable React npm libraries. Teams clone it to bootstrap a new library so they don't reconfigure build, test, lint, and release infrastructure from scratch.
+A composable React component library for **video wall** (大屏) layout, windowing, and interactive editing. It maps a physical video wall to the DOM at any scale and converts coordinates between the two spaces losslessly.
+
+## Architecture (layered, composable)
+
+- **Core layer** (always): the coordinate model + the `<VideoWall>` renderer (tiles, contain-fit into the container, padding). Zero third-party dependencies.
+- **Window layer** (optional): renders `<Window>` rectangles on the wall.
+- **Interaction layer** (optional): box-select-to-open, drag / resize / drag-out-to-remove. Built on `selecto` + `moveable`, declared as **peerDependencies** so the core stays dependency-free.
 
 ## Language
 
-**Starter Template**:
-The thing this repository IS — a cloneable scaffolding for React npm libraries. Propagates via git (`degit`/`git clone`), not via `npm install`.
-_Avoid_: library, package, framework, boilerplate
+**Tile / 小屏**:
+A single screen unit composing the wall. Tiles abut to form one rectangular wall; their sizes may differ but their union is exactly the wall rectangle.
+_Avoid_: cell, panel, monitor
 
-**Consumer Library**:
-A concrete React library that a downstream team produces BY cloning the Starter Template and replacing the example `src/`. This is the thing that ultimately gets published to npm and installed by end users.
-_Avoid_: starter, template, app
+**Window / 窗口**:
+A rectangular region opened ON the wall (e.g. displaying a video source), positioned in wall coordinates with origin (0,0) at the wall's top-left.
+_Avoid_: region, zone, layer
 
-**End User**:
-The developer/project that `npm install`s a Consumer Library as a dependency.
-_Avoid_: consumer, customer
+**Wall Layout**:
+The arrangement of tiles — either an explicit list of tile rects `[{x,y,width,height}, …]` or an even `N×N` split derived from the wall size.
+_Avoid_: grid, matrix
 
-**Playground**:
-An app that lives inside the Starter Template and exercises the example library source from the **End User's perspective**, validating what the install-and-import experience will feel like once the Consumer Library is published.
-_Avoid_: demo, example, sandbox, storybook (different tool)
+**Video Wall / 大屏**:
+The logical rectangle, in physical-integer coordinates, that the library models. It is partitioned into Tiles and is the coordinate origin (`0,0` = top-left, `width,height` = bottom-right) for every Window. The DOM `<VideoWall>` component is its scaled, contain-fit rendering — a view, not the source of truth.
+_Avoid_: screen, display (ambiguous with the physical device or the DOM element)
 
-**Pre-compiled CSS**:
-The styling model for the Consumer Library: Tailwind is compiled to a static `dist/style.css` at build time and shipped via `package.json#exports`. End Users import it directly with no Tailwind toolchain of their own.
-_Avoid_: runtime CSS-in-JS, consumer-side Tailwind, styled source
+**Coordinate Space**:
+The two spaces every wall rect lives in. **Physical** — integer pixels on the real wall, the authoritative model. **DOM** — float pixels in the browser, a derived view. Conversions cross the boundary once per interaction, integer-driven, rounding to the physical grid (ADR-0008).
+_Avoid_: resolution, scale (scale is the ratio between the two, not a space)
