@@ -15,7 +15,7 @@
     "prepare": "lefthook install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.0.0",
+    "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@release-it/conventional-changelog": "^7.0.0",
     "lefthook": "^1.10.0",
