@@ -44,7 +44,13 @@ export function VideoWall({
     if (!el) return;
     const measure = () => {
       const r = el.getBoundingClientRect();
-      setContainerSize({ width: r.width, height: r.height });
+      // idempotent: skip the update when size is unchanged, so a spurious
+      // ResizeObserver callback mid-drag can't recompute scale and snap windows.
+      setContainerSize((prev) =>
+        prev.width === r.width && prev.height === r.height
+          ? prev
+          : { width: r.width, height: r.height },
+      );
     };
     measure();
     if (typeof ResizeObserver === "undefined") return; // ponytail: non-DOM/SSR guard
