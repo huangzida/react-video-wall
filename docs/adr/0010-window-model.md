@@ -6,7 +6,7 @@ Built on the wall/tile model (ADR-0009) and the coordinate model (ADR-0008).
 - **A Window is `{ id, x, y, width, height }`** in physical-integer wall coordinates (origin `0,0` = wall top-left), plus an open extension slot (`z?`, `data?`, etc.) for consumer business fields. The library only cares about geometry; `id` is the stable React key and the moveable target handle.
 - **`<Window>` renders as a shell/frame only.** The consumer provides `children` (a `<video>`, `<img>`, iframe, chart — anything). The library never assumes content type, keeping the core free of media/business dependencies.
 - **Overlap is allowed.** z-order defaults to array order (later = on top); an optional explicit `z` overrides.
-- **Window geometry is validated/clamped to the wall rect** `[0,0,W,H]`. Dragging a window *out* of the wall to remove it is an interaction-layer behaviour (ADR-0011), not a data-model rule.
+- **Window geometry is validated/clamped to the wall rect** `[0,0,W,H]`. Dragging a window _out_ of the wall to remove it is an interaction-layer behaviour (ADR-0011), not a data-model rule.
 
 ## Consequences
 
