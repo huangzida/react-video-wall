@@ -1,0 +1,69 @@
+/* Large rounded-rect slider: label inside-left, value inside-right. No knob —
+   the bright region (left of the value) meets the dark region (right of the value)
+   at a hard edge; that edge IS the handle position. Monochrome luminance only.
+   The whole bar is the pointer drag surface. */
+
+/* Flat token model: bright region (left) = --surface-2, dark region (right) =
+   --surface. No shadow, no gradient — the hard edge where they meet IS the handle
+   position. Tracks both themes via the surface tokens. label/value are full --text
+   (AA-safe); hierarchy by size + weight. */
+
+.slider {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem; /* shape-lock with .toggle / .seg */
+  /* the DARK region (right of the value divider) = --surface. No shadow: the
+     junction with the brighter --surface-2 fill (left) is the handle indicator. */
+  background: var(--surface);
+  cursor: pointer;
+  user-select: none;
+  touch-action: none; /* let the pointer drag own the gesture, no scroll fight */
+  overflow: hidden;
+}
+
+.slider:focus-visible {
+  /* neutral white ring: the slider stays pure luminance — the teal accent is kept
+     off it by design (signals elsewhere carry the hue, the slider reads by value). */
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.value {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* the BRIGHT region (left of the value) = --surface-2. Its right edge is the
+   divider = handle position, a hard vertical edge against the --surface bar.
+   No shadow, no gradient — pure token luminance, tracks both themes. */
+.fill {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto 0 0;
+  background: var(--surface-2);
+  transition: width 0.05s linear;
+}

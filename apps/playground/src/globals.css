@@ -1,0 +1,13 @@
+/* Global box-sizing reset. Without it, elements with `width: 100%` + horizontal
+   padding/border (the slider, wall inputs, JSON textarea) render wider than their
+   panel and trigger horizontal scrollbars. One rule, applied everywhere. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Kill the browser default 8px body margin so the app fills the viewport edge to edge. */
+body {
+  margin: 0;
+}

@@ -1,0 +1,189 @@
+.table {
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--surface-2);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3.4rem repeat(5, minmax(0, 1fr)) 1.9rem;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.28rem 0.45rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s ease;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.head {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: color-mix(in oklab, var(--accent) 5%, transparent);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.head span {
+  text-align: center;
+}
+
+.idHead {
+  text-align: center !important;
+}
+
+.actCol {
+  display: grid;
+  place-items: center;
+}
+
+.row:not(.head) {
+  cursor: pointer;
+}
+
+.row:not(.head):hover {
+  background: color-mix(in oklab, var(--accent) 6%, transparent);
+}
+
+.active {
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.idCell {
+  color: var(--accent);
+  font-weight: 500;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cellWrap {
+  min-width: 0;
+}
+
+.cell {
+  width: 100%;
+  min-width: 0;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid transparent;
+  border-radius: 0.32rem;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+}
+
+.cell:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 22%, transparent);
+  background: var(--surface);
+}
+
+.cell::placeholder {
+  color: var(--faint);
+}
+
+.cell[aria-invalid="true"] {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.18);
+  background: rgba(239, 68, 68, 0.07);
+  animation: badpulse 1s ease-in-out infinite;
+}
+
+.addBtn {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.55rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    border-color 0.14s ease,
+    transform 0.06s ease;
+}
+
+.addBtn:hover {
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  border-color: var(--accent);
+}
+
+.addBtn:active {
+  transform: scale(0.94);
+}
+
+.delBtn {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.55rem;
+  border: none;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--faint);
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    background 0.12s ease;
+}
+
+.delBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  padding: 0.9rem 0.7rem;
+  text-align: center;
+  color: var(--faint);
+  font-style: italic;
+}
+
+.hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.4rem 0.55rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  color: var(--faint);
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+@keyframes badpulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.16);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell[aria-invalid="true"] {
+    animation: none;
+  }
+}

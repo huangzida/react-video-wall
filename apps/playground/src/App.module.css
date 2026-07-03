@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap");
 
 /*
  * react-video-wall playground — control-room aesthetic.
@@ -8,15 +8,18 @@
  */
 
 .page {
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  --font-display:
+    "Space Grotesk", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono:
+    "IBM Plex Mono", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-monospace, "SF Mono",
+    "Cascadia Code", monospace;
 
   --bg: #eef2f7;
   --bg-glow-a: rgba(45, 212, 191, 0.14);
   --bg-glow-b: rgba(99, 102, 241, 0.12);
   --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --wall-bg: #0e1420;
+  --surface-2: #e2e8f0;
+  --wall-bg: #1e293b;
   --border: rgba(15, 23, 42, 0.1);
   --border-strong: rgba(15, 23, 42, 0.16);
   --text: #0f172a;
@@ -25,18 +28,27 @@
   --accent: #0d9488;
   --accent-2: #4f46e5;
 
-  /* camera-feed window content */
-  --feed-a: #0b1220;
-  --feed-b: #131c2e;
+  /* In-wall elements. The wall is ALWAYS dark (#1e293b slate-800, the screen
+     metaphor), so these are tuned for a dark surface even in light mode: a
+     lit-slate window fill floats one step above the wall, a soft light-slate
+     bezel frames it (teal stays off the frame, teal is a signal not structure),
+     and a white hairline carries the tile grid. */
+  --feed-a: #3b4a5e; /* lit-slate screen, one clear step above the wall */
+  --feed-b: #2a3a52; /* darker slate mate (unused while winContent is solid) */
   --feed-glow: rgba(45, 212, 191, 0.22);
-  --tile-border: rgba(15, 23, 42, 0.16);
-  --win-border: var(--accent);
+  --tile-border: rgba(255, 255, 255, 0.12); /* light hairline reads on the dark wall */
+  --win-border: rgba(148, 163, 184, 0.5); /* soft slate bezel, family-coordinated */
   --win-bg: transparent;
 
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   padding: clamp(1rem, 3vw, 2.5rem) clamp(1rem, 4vw, 3rem) 2rem;
   color: var(--text);
   font-family: var(--font-display);
+  /* antialiasing materially improves small CJK (and Latin) on the dark control-room bg */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background:
     radial-gradient(1100px 560px at 8% -10%, var(--bg-glow-a), transparent 60%),
     radial-gradient(900px 500px at 102% -4%, var(--bg-glow-b), transparent 55%), var(--bg);
@@ -44,25 +56,29 @@
 }
 
 :global(.dark) .page {
-  --bg: #070a11;
-  --bg-glow-a: rgba(45, 212, 191, 0.1);
-  --bg-glow-b: rgba(79, 70, 229, 0.12);
-  --surface: #111827;
-  --surface-2: #0d1422;
-  --wall-bg: #05080e;
-  --border: rgba(148, 163, 184, 0.14);
-  --border-strong: rgba(148, 163, 184, 0.24);
-  --text: #e6edf3;
-  --muted: #94a3b8;
-  --faint: #64748b;
-  --accent: #2dd4bf;
-  --accent-2: #818cf8;
+  /* Dark Glass Control-Room: a cool-charcoal ladder (one step up from dead black,
+   * with a faint blue cast, not flat grey) carrying a SINGLE lifted teal accent
+   * locked to signals only (focus / active / id / LIVE / selection). Accent is a
+   * signal, never ambient lighting, so the bg blooms stay off. */
+  --bg: #0c0e12; /* page: cool near-black */
+  --bg-glow-a: transparent; /* matte: no teal/indigo ambient bloom */
+  --bg-glow-b: transparent;
+  --surface: #161a20; /* panel surface: cool charcoal */
+  --surface-2: #1f2429; /* control rows / input wells: one step brighter */
+  --wall-bg: #070a0e;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.11);
+  --text: #ebebeb;
+  --muted: #909090; /* AA: ~4.9:1 on #1f2429 (the lightest surface) */
+  --faint: #909090;
+  --accent: #2dd4bf; /* lifted teal-400 — the one accent, signals only */
+  --accent-2: #14b8a6; /* same hue family, one step deeper (selection ring) */
 
-  --feed-a: #0a1018;
-  --feed-b: #0f1a2b;
-  --feed-glow: rgba(45, 212, 191, 0.16);
-  --tile-border: rgba(148, 163, 184, 0.1);
-  --win-border: var(--accent);
+  --feed-a: #131a22;
+  --feed-b: #1a232e; /* feed tracks the cool-charcoal family */
+  --feed-glow: transparent;
+  --tile-border: rgba(255, 255, 255, 0.07);
+  --win-border: rgba(255, 255, 255, 0.4);
   --win-bg: transparent;
 }
 
@@ -72,8 +88,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  max-width: 1240px;
-  margin: 0 auto 1.5rem;
+  margin: 0 0 1.4rem;
   padding-bottom: 1.1rem;
   border-bottom: 1px solid var(--border);
   animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
@@ -169,56 +184,62 @@
   transform: translateY(1px);
 }
 
-/* ---------- grid + panels ---------- */
+/* ---------- workspace: canvas (hero) + inspector (sidebar) ---------- */
 
-.grid {
+.workspace {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) 460px;
+  grid-template-rows: minmax(0, 1fr);
   gap: 1.25rem;
-  max-width: 1240px;
-  margin: 0 auto;
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: 0.06s;
 }
 
-@media (max-width: 880px) {
-  .grid {
+@media (max-width: 960px) {
+  .workspace {
     grid-template-columns: 1fr;
+    flex: 0 0 auto;
+    min-height: 0;
+    grid-template-rows: none;
   }
 }
 
-.panel {
+.hero {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: 1.1rem 1.1rem 1.2rem;
+  gap: 0.8rem;
+  padding: 1.1rem;
+  min-height: 0;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 0.9rem;
   background: var(--surface);
   box-shadow:
     0 1px 2px rgb(0 0 0 / 4%),
     0 12px 34px rgb(2 6 23 / 6%);
-  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-.panel:nth-child(2) {
-  animation-delay: 0.08s;
+@media (max-width: 960px) {
+  .hero {
+    min-height: 52vh;
+    overflow: visible;
+  }
 }
 
-.panelHead {
+.heroHead {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
+  flex-wrap: wrap;
 }
 
-.panelIcon {
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.panelHead h2 {
-  margin: 0;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+.dim {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
 .tag {
@@ -232,6 +253,12 @@
   border-radius: 0.35rem;
 }
 
+.tagMode {
+  color: var(--accent);
+  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
 .count {
   margin-left: auto;
   font-family: var(--font-mono);
@@ -243,101 +270,15 @@
   border: 1px solid var(--border);
 }
 
-/* ---------- data / debug panel (read-only live state) ---------- */
-
-.data {
-  max-width: 1240px;
-  margin: 1.25rem auto 0;
-  padding: 1.1rem 1.1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: 0.9rem;
-  background: var(--surface);
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 4%),
-    0 12px 34px rgb(2 6 23 / 6%);
-  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: 0.16s;
-}
-
-.dataGrid {
-  margin-top: 0.25rem;
-  border: 1px solid var(--border);
-  border-radius: 0.55rem;
-  background: var(--surface-2);
-  overflow: hidden;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.dataRow {
-  display: grid;
-  grid-template-columns: 3.5rem repeat(4, minmax(0, 1fr));
-  align-items: center;
-  padding: 0.4rem 0.8rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.12s ease;
-}
-
-.dataRow:last-child {
-  border-bottom: 0;
-}
-
-/* right-align the numeric columns; id stays left */
-.dataRow span:not(:first-child) {
-  text-align: right;
-}
-
-.dataHeadRow {
-  padding-top: 0.34rem;
-  padding-bottom: 0.34rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--faint);
-  background: color-mix(in oklab, var(--accent) 5%, transparent);
-  border-bottom: 1px solid var(--border-strong);
-}
-
-.dataRow:not(.dataHeadRow):hover {
-  background: color-mix(in oklab, var(--accent) 7%, transparent);
-}
-
-.dataId {
-  color: var(--accent);
-  font-weight: 500;
-}
-
-.dataEmpty {
-  grid-column: 1 / -1;
-  padding: 0.9rem 0.8rem;
-  text-align: center;
-  color: var(--faint);
-  font-style: italic;
-}
-
-.dataRef {
-  margin-top: 0.7rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.03em;
-  color: var(--faint);
-}
-
-@media (max-width: 560px) {
-  .dataRow {
-    grid-template-columns: 2.8rem repeat(4, minmax(0, 1fr));
-    padding-inline: 0.6rem;
-    font-size: 0.7rem;
-  }
-}
-
-/* ---------- wall frame ---------- */
-/* MUST have an explicit height: aspect-ratio gives it, else the wall collapses. */
+/* ---------- wall frame (hero stage) ---------- */
+/* Fills the hero so the bezel is as large as possible; the lib centers the
+ * physical wall inside via contain-fit, so differing wall ratios letterbox
+ * honestly (you SEE the lossless mapping). */
 
 .wallFrame {
   position: relative;
-  aspect-ratio: 16 / 9;
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
   border: 1px solid var(--border-strong);
   border-radius: 0.65rem;
@@ -348,19 +289,284 @@
     inset 0 2px 22px rgb(0 0 0 / 45%);
 }
 
-/* faint CRT scanline mesh so the wall reads as a screen */
-.wallFrame::after {
+/* ---------- sidebar / inspector ---------- */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 4%),
+    0 12px 34px rgb(2 6 23 / 6%);
+}
+
+@media (max-width: 960px) {
+  .sidebar {
+    min-height: auto;
+    overflow: visible;
+  }
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.sectionTitle::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgb(255 255 255 / 0.025) 0 1px,
-    transparent 1px 4px
-  );
-  mix-blend-mode: screen;
-  opacity: 0.6;
+  width: 3px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0.8;
+}
+
+/* ---------- segmented control ---------- */
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--surface-2);
+}
+
+.segBtn {
+  flex: 1;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.segBtn:hover {
+  color: var(--text);
+}
+
+.segActive {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 8%),
+    0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+/* ---------- config fields ---------- */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fieldLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.wallInputs {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cross {
+  font-family: var(--font-mono);
+  color: var(--faint);
+}
+
+.num {
+  width: 100%;
+  min-width: 0;
+  padding: 0.42rem 0.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.45rem;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.num:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 20%, transparent);
+  background: var(--surface);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.preset {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition:
+    color 0.14s ease,
+    border-color 0.14s ease,
+    background 0.14s ease;
+}
+
+.preset:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+/* ---------- IO row ---------- */
+
+.ioRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ioBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition:
+    border-color 0.14s ease,
+    background 0.14s ease,
+    color 0.14s ease;
+}
+
+.ioBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+
+.ioBtnPrimary {
+  align-self: flex-start;
+  padding: 0.45rem 0.9rem;
+  border: none;
+  border-radius: 0.45rem;
+  background: var(--accent);
+  color: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    filter 0.14s ease,
+    transform 0.06s ease;
+}
+
+.ioBtnPrimary:hover {
+  filter: brightness(1.08);
+}
+
+.ioBtnPrimary:active {
+  transform: translateY(1px);
+}
+
+.importBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.jsonArea {
+  width: 100%;
+  resize: vertical;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  min-height: 5rem;
+}
+
+.jsonArea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
+.importErr {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #ef4444;
+}
+
+/* ---------- status bar ---------- */
+
+.status {
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--border-strong);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- library overrides ---------- */
@@ -373,9 +579,6 @@
   border: 1px solid var(--win-border);
   background: var(--win-bg);
   border-radius: 3px;
-  box-shadow:
-    0 0 0 1px rgb(0 0 0 / 30%),
-    0 0 16px color-mix(in oklab, var(--accent) 30%, transparent);
 }
 
 /* ---------- tile label ---------- */
@@ -401,21 +604,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  background:
-    radial-gradient(120% 90% at 25% 15%, var(--feed-glow), transparent 55%),
-    linear-gradient(150deg, var(--feed-a), var(--feed-b));
-}
-
-.winContent::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgb(255 255 255 / 0.03) 0 1px,
-    transparent 1px 3px
-  );
-  opacity: 0.5;
+  background: var(--feed-a);
 }
 
 .recDot {
@@ -439,6 +628,67 @@
   text-shadow: 0 1px 6px rgb(0 0 0 / 60%);
 }
 
+.winZ {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: rgb(226 232 240 / 0.7);
+  text-shadow: 0 1px 4px rgb(0 0 0 / 60%);
+}
+
+/* highlight ring (row <-> window link) */
+.winHighlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  border: 2px solid var(--accent);
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--accent) 45%, transparent),
+    0 0 18px color-mix(in oklab, var(--accent) 60%, transparent);
+  pointer-events: none;
+  animation: hilight 1.2s ease-in-out infinite;
+}
+
+/* ---------- dark-mode monochrome overrides ----------
+   The token block above purges hue from every var-driven rule (sidebar, table,
+   slider, inputs all cascade through --accent/--surface/etc.). These few overrides
+   fix the hardcoded colours that bypass the vars: the panel lift-shadow, the
+   window/feed blooms, and the bluish feed text, so dark reads as pure matte glass.
+   Light mode is untouched. */
+
+:global(.dark) .hero,
+:global(.dark) .sidebar {
+  /* matte glass: drop the outer lift-shadow, keep a faint top recess only */
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
+}
+
+:global(.dark) .wallFrame :global(.rvw-window) {
+  /* crisp 1px edge only, no bloom */
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 40%);
+}
+
+:global(.dark) .recDot {
+  box-shadow: none;
+}
+
+:global(.dark) .winId {
+  color: rgb(235 235 235 / 0.92);
+}
+
+:global(.dark) .winZ {
+  color: rgb(235 235 235 / 0.65);
+}
+
+:global(.dark) .winHighlight::after {
+  /* selection = the teal accent on a crisp ring (the strongest signal), no bloom */
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
 /* ---------- caption + footer ---------- */
 
 .caption {
@@ -454,14 +704,8 @@
   color: var(--accent);
 }
 
-.caption strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
 .foot {
-  max-width: 1240px;
-  margin: 1.5rem auto 0;
+  margin: 1.5rem 0 0;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.04em;
@@ -496,12 +740,22 @@
   }
 }
 
+@keyframes hilight {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .topbar,
-  .panel,
-  .data,
+  .workspace,
   .foot,
-  .liveDot {
+  .liveDot,
+  .winHighlight::after {
     animation: none;
   }
 }
