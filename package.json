@@ -21,7 +21,7 @@
     "lefthook": "^1.10.0",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
-    "release-it": "^18.0.0",
+    "release-it": "^20.2.1",
     "typescript": "^5.9.0",
     "verdaccio": "^6.0.0"
   },
